@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import videoApi from './core/api/videoApi';
-import Header from './components/Header/Header';
+import VideoSession from './modules/VideoSession/VideoSession';
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <VideoSession />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
