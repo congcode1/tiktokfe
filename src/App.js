@@ -1,17 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect } from 'react';
 import videoApi from './core/api/videoApi';
+import Header from './components/Header/Header';
 
 function App() {
 
-  useEffect(() => {
-    videoApi.getAll()
-      .then(data => console.log(data));
-  }, [])
+  videoApi.getAll()
+    .then(data => console.log(data));
 
   return (
     <div className="App">
+      <Header />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
