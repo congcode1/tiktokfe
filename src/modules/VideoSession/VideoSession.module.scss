@@ -1,4 +1,40 @@
 
-.video-section {
-    width: 500px;
+.videoSection {
+    width: 690px;
+    background-color: #a84e46;
+    display: flex;
+
+    .videoAvatar {
+        
+        img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+        }
+    }
+
+    .videoMain {
+        flex: 1;
+        padding: 0 10px;
+
+        .videoAuthor {
+            display: flex;
+            align-items: baseline;
+
+            h3 {
+                padding: 0;
+                margin: 0;
+                margin-right: 6px;
+            }
+        }
+
+        .videoDescription {
+            display: flex;
+            flex-wrap: wrap;
+
+            span:not(:first-of-type) {
+                font-weight: 500;
+            } 
+        }
+    }
 }
