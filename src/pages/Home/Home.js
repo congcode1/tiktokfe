@@ -12,7 +12,10 @@ function Home() {
             <Header />
             <div className={clsx(styles.main)}>
                 <Sidebar />
-                <VideoSession />
+                <div className={clsx(styles.content)}>
+                    <VideoSession />
+                    <VideoSession />
+                </div>
             </div>
         </>
     )
