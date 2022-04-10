@@ -157,7 +157,7 @@
                                 font-size: 18px;
                             }
                         }
-                        span:last-child {
+                        span:nth-child(2) {
                             font-size: 12px;
                         }
                         &:last-of-type {
@@ -211,7 +211,7 @@
                                     align-items: center;
                                     transition: 0.2s;
 
-                                    margin-right: 4px;
+                                    margin-right: 8px;
 
                                     svg {
                                         color: #fff;

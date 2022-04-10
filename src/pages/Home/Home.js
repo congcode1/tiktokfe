@@ -6,19 +6,18 @@ import VideoSession from "../../modules/VideoSession/VideoSession";
 
 import styles from "./Home.module.scss";
 
-function Home() {
+function HomeComponent({ videoList }) {
     return (
         <>
             <Header />
             <div className={clsx(styles.main)}>
                 <Sidebar />
                 <div className={clsx(styles.content)}>
-                    <VideoSession />
-                    <VideoSession />
+                    {videoList.map(item => <VideoSession video={item} />)}
                 </div>
             </div>
         </>
     )
 }
 
-export default Home
+export default HomeComponent

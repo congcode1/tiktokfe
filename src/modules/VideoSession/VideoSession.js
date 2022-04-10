@@ -4,22 +4,18 @@ import {
     faHeart,
     faCommentAlt,
     faShare,
-    faPlane,
     faCode,
     faPaperPlane,
     faLink,
     faMessage,
 } from '@fortawesome/free-solid-svg-icons';
 import clsx from "clsx";
+import { useState } from "react";
 
+import abbrNum from "../../core/helpers/friendlyNumber";
 import styles from "./VideoSession.module.scss";
-import { useEffect, useState } from "react";
-import videoApi from "../../core/api/videoApi";
 
-
-
-
-function VideoSession() {
+function VideoSession({ video }) {
     const [shareList] = useState(() => [
         {
             icon: faCode,
@@ -42,39 +38,27 @@ function VideoSession() {
             bgColor: "#e4284c",
         },
     ])
-    const [pr, setPr] = useState(null);
-    useEffect(() => {
-        videoApi.getAllVideo({
-            unique_id: '@_deadc',
-            user_id: '_deadc',
-            count: '10',
-            cursor: '0'
-        })
-            .then(response => setPr(response.data.videos[0]))
-            .catch(error => console.log(error))
-    }, [])
 
-
-    return pr && <section className={clsx(styles.videoSection, "mb-8")}>
+    return video && <section className={clsx(styles.videoSection, "mb-8")}>
         <div className={clsx(styles.videoAvatar)}>
-            <img src={pr.author.avatar} />
+            <img src={video.author.avatar} alt="author avatar" />
         </div>
         <div className={clsx(styles.videoMain)}>
             <div className={clsx(styles.videoAuthor, "mb-4")}>
                 <div className={clsx(styles.videoAuthorName)}>
-                    <h3 className="link-tag">{pr.author.nickname}</h3>
+                    <h3 className="link-tag">{video.author.nickname}</h3>
                     <div className={clsx(styles.breifInfo)}>
                         <div className={clsx(styles.breifInfoTop)}>
-                            <img src={pr.author.avatar} />
+                            <img src={video.author.avatar} alt="author avatar" />
                             <button>
                                 Follow
                             </button>
                         </div>
-                        <h3 className="link-tag mb-6">{pr.author.nickname}</h3>
-                        <h5 className="mb-6">{pr.author.unique_id}</h5>
+                        <h3 className="link-tag mb-6">{video.author.nickname}</h3>
+                        <h5 className="mb-6">{video.author.unique_id}</h5>
                         <span className="d-block mb-10">
-                            <span className="b-text">49.2K</span><span>Follow</span>
-                            <span className="b-text">49M</span><span>Thích</span>
+                            <span className="b-text">{abbrNum(492000, 1)}</span><span>Follow</span>
+                            <span className="b-text">{abbrNum(23423434, 1)}</span><span>Thích</span>
                         </span>
                         <hr className="mb-8" />
                         <p>
@@ -82,10 +66,10 @@ function VideoSession() {
                         </p>
                     </div>
                 </div>
-                <span>{pr.author.unique_id}</span>
+                <span>{video.author.unique_id}</span>
             </div>
             <div className={clsx(styles.videoDescription, "mb-4")}>
-                <span>{pr.title}</span>
+                <span>{video.title}</span>
                 <span className="tag link-tag">#Bikipsongao</span>
                 <span className="tag link-tag">#Hologramvnn</span>
                 <span className="tag link-tag">#Hologramvnn</span>
@@ -94,17 +78,18 @@ function VideoSession() {
             </div>
             <div className={clsx(styles.videoMusic, "mb-8")}>
                 <FontAwesomeIcon icon={faMusic} />
-                <span className="link-tag">nhạc nền - {pr.music_info.title} - {pr.music_info.author}</span>
+                <span className="link-tag">nhạc nền - {video.music_info.title} - {video.music_info.author}</span>
             </div>
             <div className={clsx(styles.videoContainer)}>
                 <div className={clsx(styles.videoContentLeft)}>
                     <video
-                        src={pr.play}
+                        src={video.play}
                         width={280}
                         height="100%"
                         autoPlay
                         muted
                         controls
+                        loop
                     ></video>
 
                 </div>
@@ -114,19 +99,19 @@ function VideoSession() {
                             <span className={clsx(styles.itemIcon)}>
                                 <FontAwesomeIcon icon={faHeart} />
                             </span>
-                            <span>{pr.digg_count}</span>
+                            <span>{abbrNum(video.digg_count, 1)}</span>
                         </span>
                         <span className={clsx(styles.actionItem)}>
                             <span className={clsx(styles.itemIcon)}>
                                 <FontAwesomeIcon icon={faCommentAlt} />
                             </span>
-                            <span>{pr.comment_count}</span>
+                            <span>{abbrNum(video.comment_count, 1)}</span>
                         </span>
                         <span className={clsx(styles.actionItem)}>
                             <span className={clsx(styles.itemIcon)}>
                                 <FontAwesomeIcon icon={faShare} />
                             </span>
-                            <span>{pr.share_count}</span>
+                            <span>{abbrNum(video.share_count, 1)}</span>
                             <ul className={clsx(styles.shareList)}>
                                 {shareList.map(item =>
                                     <li className={clsx(styles.shareItem)}>
