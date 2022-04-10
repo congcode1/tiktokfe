@@ -4,74 +4,149 @@ import {
     faHeart,
     faCommentAlt,
     faShare,
+    faPlane,
+    faCode,
+    faPaperPlane,
+    faLink,
+    faMessage,
 } from '@fortawesome/free-solid-svg-icons';
 import clsx from "clsx";
 
 import styles from "./VideoSession.module.scss";
-console.log(styles);
+import { useEffect, useState } from "react";
+import videoApi from "../../core/api/videoApi";
+
+
+
 
 function VideoSession() {
-    return (
-        <section className={clsx(styles.videoSection, "mb-8")}>
-            <div className={clsx(styles.videoAvatar)}>
-                <img src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/72036937ed55150d2d74c4a95aadf6c4~c5_100x100.jpeg?x-expires=1649545200&x-signature=%2BgNm9QiDL6Exk3aNXbRq4FU3zYg%3D" />
-            </div>
-            <div className={clsx(styles.videoMain)}>
-                <div className={clsx(styles.videoAuthor, "mb-4")}>
-                    <h3>hologramvnn</h3>
-                    <span>hologramvnn</span>
-                </div>
-                <div className={clsx(styles.videoDescription, "mb-4")}>
-                    <span className="content">Còn ai thích nữa khum</span>
-                    <span className="tag">#Bikipsongao</span>
-                    <span className="tag">#Hologramvnn</span>
-                    <span className="tag">#Hologramvnn</span>
-                    <span className="tag">#Hologramvnn</span>
-                    <span className="tag">#Hologramvnn</span>
-                </div>
-                <div className={clsx(styles.videoMusic, "mb-8")}>
-                    <FontAwesomeIcon icon={faMusic} />
-                    <span>nhạc nền - hologram - Hologrmvnn</span>
-                </div>
-                <div className={clsx(styles.videoContainer)}>
-                    <div className={clsx(styles.videoContentLeft)}>
-                        <video
-                            src="https://v16-webapp.tiktok.com/47a2ac57dd6cde8cbbd0c62240e5121b/625110af/video/tos/useast2a/tos-useast2a-pve-0037c001-aiso/2592695a68404b768585ca51d06afd13/?a=1988&br=750&bt=375&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZbWRBwe2Nymhml7Gb&l=202204082250330102451292200276B90D&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=11&rc=M2g0eWQ6Zmd2PDMzZjgzM0ApaDs6MzlmaDw4Nzc8ZGY7OGduMHJrcjRvZjBgLS1kL2NzczFiYTUxNjFfNi82YS82XjA6Yw%3D%3D&vl=&vr="
-                            width={280}
-                            height="100%"
-                            autoPlay={true}
-                        ></video>
+    const [shareList] = useState(() => [
+        {
+            icon: faCode,
+            title: "Nhúng",
+            bgColor: "#46484f",
+        },
+        {
+            icon: faPaperPlane,
+            title: "Gửi đến bạn bè",
+            bgColor: "#e4284c",
+        },
+        {
+            icon: faMessage,
+            title: "Chia sẻ với Messenger",
+            bgColor: "#0069e1",
+        },
+        {
+            icon: faLink,
+            title: "Sao chép liên kết",
+            bgColor: "#e4284c",
+        },
+    ])
+    const [pr, setPr] = useState(null);
+    useEffect(() => {
+        videoApi.getAllVideo({
+            unique_id: '@_deadc',
+            user_id: '_deadc',
+            count: '10',
+            cursor: '0'
+        })
+            .then(response => setPr(response.data.videos[0]))
+            .catch(error => console.log(error))
+    }, [])
 
-                    </div>
-                    <div className={clsx(styles.videoContentRight)}>
-                        <div className={clsx(styles.videoAction)}>
-                            <span className={clsx(styles.actionItem)}>
-                                <span className={clsx(styles.itemIcon)}>
-                                    <FontAwesomeIcon icon={faHeart} />
-                                </span>
-                                <span>258.5K</span>
-                            </span>
-                            <span className={clsx(styles.actionItem)}>
-                                <span className={clsx(styles.itemIcon)}>
-                                    <FontAwesomeIcon icon={faCommentAlt} />
-                                </span>
-                                <span>2322</span>
-                            </span>
-                            <span className={clsx(styles.actionItem)}>
-                                <span className={clsx(styles.itemIcon)}>
-                                    <FontAwesomeIcon icon={faShare} />
-                                </span>
-                                <span>295</span>
-                            </span>
+
+    return pr && <section className={clsx(styles.videoSection, "mb-8")}>
+        <div className={clsx(styles.videoAvatar)}>
+            <img src={pr.author.avatar} />
+        </div>
+        <div className={clsx(styles.videoMain)}>
+            <div className={clsx(styles.videoAuthor, "mb-4")}>
+                <div className={clsx(styles.videoAuthorName)}>
+                    <h3 className="link-tag">{pr.author.nickname}</h3>
+                    <div className={clsx(styles.breifInfo)}>
+                        <div className={clsx(styles.breifInfoTop)}>
+                            <img src={pr.author.avatar} />
+                            <button>
+                                Follow
+                            </button>
                         </div>
+                        <h3 className="link-tag mb-6">{pr.author.nickname}</h3>
+                        <h5 className="mb-6">{pr.author.unique_id}</h5>
+                        <span className="d-block mb-10">
+                            <span className="b-text">49.2K</span><span>Follow</span>
+                            <span className="b-text">49M</span><span>Thích</span>
+                        </span>
+                        <hr className="mb-8" />
+                        <p>
+                            một đoạn text mô tả description, asd z zzzzzzzzzzzz
+                        </p>
+                    </div>
+                </div>
+                <span>{pr.author.unique_id}</span>
+            </div>
+            <div className={clsx(styles.videoDescription, "mb-4")}>
+                <span>{pr.title}</span>
+                <span className="tag link-tag">#Bikipsongao</span>
+                <span className="tag link-tag">#Hologramvnn</span>
+                <span className="tag link-tag">#Hologramvnn</span>
+                <span className="tag link-tag">#Hologramvnn</span>
+                <span className="tag link-tag">#Hologramvnn</span>
+            </div>
+            <div className={clsx(styles.videoMusic, "mb-8")}>
+                <FontAwesomeIcon icon={faMusic} />
+                <span className="link-tag">nhạc nền - {pr.music_info.title} - {pr.music_info.author}</span>
+            </div>
+            <div className={clsx(styles.videoContainer)}>
+                <div className={clsx(styles.videoContentLeft)}>
+                    <video
+                        src={pr.play}
+                        width={280}
+                        height="100%"
+                        autoPlay
+                        muted
+                        controls
+                    ></video>
+
+                </div>
+                <div className={clsx(styles.videoContentRight)}>
+                    <div className={clsx(styles.videoAction)}>
+                        <span className={clsx(styles.actionItem)}>
+                            <span className={clsx(styles.itemIcon)}>
+                                <FontAwesomeIcon icon={faHeart} />
+                            </span>
+                            <span>{pr.digg_count}</span>
+                        </span>
+                        <span className={clsx(styles.actionItem)}>
+                            <span className={clsx(styles.itemIcon)}>
+                                <FontAwesomeIcon icon={faCommentAlt} />
+                            </span>
+                            <span>{pr.comment_count}</span>
+                        </span>
+                        <span className={clsx(styles.actionItem)}>
+                            <span className={clsx(styles.itemIcon)}>
+                                <FontAwesomeIcon icon={faShare} />
+                            </span>
+                            <span>{pr.share_count}</span>
+                            <ul className={clsx(styles.shareList)}>
+                                {shareList.map(item =>
+                                    <li className={clsx(styles.shareItem)}>
+                                        <span className={clsx(styles.shareItemIcon)} style={{ backgroundColor: item.bgColor }}>
+                                            <FontAwesomeIcon icon={item.icon} />
+                                        </span>
+                                        <span className={clsx(styles.shareItemText)}>
+                                            {item.title}
+                                        </span>
+                                    </li>)}
+                            </ul>
+                        </span>
                     </div>
                 </div>
             </div>
-            <div className={clsx(styles.videoFollow)}>
-                <button>follow</button>
-            </div>
-        </section>
-    )
+        </div>
+        <div className={clsx(styles.videoFollow)}>
+            <button>follow</button>
+        </div>
+    </section>
 }
 
 export default VideoSession;

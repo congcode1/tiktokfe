@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+.d-block {
+    display: block;
+}
+
+.b-text {
+    font-weight: 600;
+}
+
 .mb-4 {
     margin-bottom: 4px;
 }
@@ -14,4 +22,13 @@
 
 .mb-8 {
     margin-bottom: 8px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.link-tag:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
