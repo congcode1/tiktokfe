@@ -13,7 +13,7 @@ function HomeComponent({ videoList }) {
             <div className={clsx(styles.main)}>
                 <Sidebar />
                 <div className={clsx(styles.content)}>
-                    {videoList.map(item => <VideoSession video={item} />)}
+                    {videoList.map(item => <VideoSession key={item.video_id} video={item} />)}
                 </div>
             </div>
         </>

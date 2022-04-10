@@ -8,9 +8,14 @@ import {
     faPaperPlane,
     faLink,
     faMessage,
+    faPause,
+    faVolumeHigh,
+    faFlag,
+    faPlay,
+    faVolumeMute,
 } from '@fortawesome/free-solid-svg-icons';
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import abbrNum from "../../core/helpers/friendlyNumber";
 import styles from "./VideoSession.module.scss";
@@ -38,8 +43,32 @@ function VideoSession({ video }) {
             bgColor: "#e4284c",
         },
     ])
+    const videoRef = useRef();
+    const [isPlay, setIsPlay] = useState(true);
+    const [isSound, setIsSound] = useState(true);
+    useEffect(() => {
+        videoRef.current.volume = 0.2;
+    }, []);
+    function HandleVolumeChange(e) {
+        var percent = e.target.value / 100;
+        videoRef.current.volume = percent;
+    }
+    function HandleIsPlayChange() {
+        setIsPlay(prev => {
+            isPlay ? videoRef.current.pause() : videoRef.current.play()
+            return !prev;
+        });
+    }
+    function HandleIsSoundChange() {
+        setIsSound(prev => {
+            isSound ? videoRef.current.muted = true : videoRef.current.muted = false
+            return !prev;
+        });
+    }
 
-    return video && <section className={clsx(styles.videoSection, "mb-8")}>
+    return video && <section className={clsx(styles.videoSection, "mb-8", {
+        [styles.videoSectionPlay]: true,
+    })}>
         <div className={clsx(styles.videoAvatar)}>
             <img src={video.author.avatar} alt="author avatar" />
         </div>
@@ -82,39 +111,57 @@ function VideoSession({ video }) {
             </div>
             <div className={clsx(styles.videoContainer)}>
                 <div className={clsx(styles.videoContentLeft)}>
-                    <video
+                    <video ref={videoRef}
                         src={video.play}
                         width={280}
                         height="100%"
-                        autoPlay
-                        muted
-                        controls
                         loop
-                    ></video>
+                    >
+                    </video>
+                    <div className={styles.videoOverlay}>
+                        <span className={clsx(styles.controlItemIcon)}>
+                            <FontAwesomeIcon icon={isPlay ? faPause : faPlay}
+                                onClick={HandleIsPlayChange}
+                            />
+                        </span>
+                        <span className={clsx(styles.controlItemIcon)}>
+                            <input type="range" orient="vertical" className={clsx(styles.controlItemRange)}
+                                onChange={HandleVolumeChange}
+                            />
+                            <FontAwesomeIcon icon={isSound ? faVolumeHigh : faVolumeMute}
+                                onClick={HandleIsSoundChange}
+                            />
+                        </span>
+                        <span className={clsx(styles.controlItemIcon)}>
+                            <FontAwesomeIcon icon={faFlag} /> Report
+                        </span>
+                    </div>
 
                 </div>
                 <div className={clsx(styles.videoContentRight)}>
                     <div className={clsx(styles.videoAction)}>
                         <span className={clsx(styles.actionItem)}>
-                            <span className={clsx(styles.itemIcon)}>
+                            <span className={clsx(styles.actionItemIcon)}>
                                 <FontAwesomeIcon icon={faHeart} />
                             </span>
                             <span>{abbrNum(video.digg_count, 1)}</span>
                         </span>
                         <span className={clsx(styles.actionItem)}>
-                            <span className={clsx(styles.itemIcon)}>
+                            <span className={clsx(styles.actionItemIcon)}>
                                 <FontAwesomeIcon icon={faCommentAlt} />
                             </span>
                             <span>{abbrNum(video.comment_count, 1)}</span>
                         </span>
                         <span className={clsx(styles.actionItem)}>
-                            <span className={clsx(styles.itemIcon)}>
+                            <span className={clsx(styles.actionItemIcon)}>
                                 <FontAwesomeIcon icon={faShare} />
                             </span>
                             <span>{abbrNum(video.share_count, 1)}</span>
                             <ul className={clsx(styles.shareList)}>
                                 {shareList.map(item =>
-                                    <li className={clsx(styles.shareItem)}>
+                                    <li key={item.title}
+                                        className={clsx(styles.shareItem)}
+                                    >
                                         <span className={clsx(styles.shareItemIcon)} style={{ backgroundColor: item.bgColor }}>
                                             <FontAwesomeIcon icon={item.icon} />
                                         </span>
