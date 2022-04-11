@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import LazyLoad from 'react-lazyload';
 
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -13,7 +14,9 @@ function HomeComponent({ videoList }) {
             <div className={clsx(styles.main)}>
                 <Sidebar />
                 <div className={clsx(styles.content)}>
-                    {videoList.map(item => <VideoSession key={item.video_id} video={item} />)}
+                    {videoList.map(item => <LazyLoad key={item.video_id} height={400}>
+                        <VideoSession key={item.video_id} video={item} />
+                    </LazyLoad>)}
                 </div>
             </div>
         </>

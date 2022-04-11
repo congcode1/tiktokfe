@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faMusic,
@@ -15,7 +16,7 @@ import {
     faVolumeMute,
 } from '@fortawesome/free-solid-svg-icons';
 import clsx from "clsx";
-import { useEffect, useRef, useState } from "react";
+import LazyLoad from 'react-lazyload';
 
 import abbrNum from "../../core/helpers/friendlyNumber";
 import styles from "./VideoSession.module.scss";
@@ -47,8 +48,9 @@ function VideoSession({ video }) {
     const [isPlay, setIsPlay] = useState(true);
     const [isSound, setIsSound] = useState(true);
     useEffect(() => {
-        videoRef.current.volume = 0.2;
-    }, []);
+        if (videoRef.current)
+            videoRef.current.volume = 0.2;
+    }, [videoRef]);
     function HandleVolumeChange(e) {
         var percent = e.target.value / 100;
         videoRef.current.volume = percent;
@@ -111,13 +113,15 @@ function VideoSession({ video }) {
             </div>
             <div className={clsx(styles.videoContainer)}>
                 <div className={clsx(styles.videoContentLeft)}>
-                    <video ref={videoRef}
-                        src={video.play}
-                        width={280}
-                        height="100%"
-                        loop
-                    >
-                    </video>
+                    <LazyLoad videoRef={videoRef}>
+                        <video ref={videoRef}
+                            src={video.play}
+                            width={280}
+                            height="100%"
+                            loop
+                        >
+                        </video>
+                    </LazyLoad>
                     <div className={styles.videoOverlay}>
                         <span className={clsx(styles.controlItemIcon)}>
                             <FontAwesomeIcon icon={isPlay ? faPause : faPlay}
@@ -176,7 +180,7 @@ function VideoSession({ video }) {
             </div>
         </div>
         <div className={clsx(styles.videoFollow)}>
-            <button>follow</button>
+            <button>Follow</button>
         </div>
     </section>
 }
