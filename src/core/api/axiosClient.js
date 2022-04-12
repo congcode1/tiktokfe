@@ -12,9 +12,6 @@ axiosClient.interceptors.request.use(async (config) => {
     config.headers = {
         'Authorization': `Bearer ${localStorage.jwt}`,
         'Accept': 'application/json',
-        //rapid api header configs
-        'X-RapidAPI-Host': 'tiktok-video-no-watermark2.p.rapidapi.com',
-        'X-RapidAPI-Key': 'c476a6341amsh46637079ba8b2e5p17259djsnddd7e36eac1a'
     }
     return config;
 })

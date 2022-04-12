@@ -5,8 +5,8 @@ const videoApi = {
         const url = "/videos";
         return axiosClient.get(url);
     },
-    getAllVideo: (params) => {
-        const url = "https://tiktok-video-no-watermark2.p.rapidapi.com/user/favorite";
+    getVideos: (params) => {
+        const url = "/videos";
         return axiosClient.get(url, { params });
     },
 }
