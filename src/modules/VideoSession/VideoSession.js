@@ -20,6 +20,7 @@ import LazyLoad from 'react-lazyload';
 
 import abbrNum from "../../core/helpers/friendlyNumber";
 import styles from "./VideoSession.module.scss";
+import SubProfile from "../../components/SubProfile/SubProfile";
 
 function VideoSession({ video }) {
     const [shareList] = useState(() => [
@@ -76,27 +77,10 @@ function VideoSession({ video }) {
         </div>
         <div className={clsx(styles.videoMain)}>
             <div className={clsx(styles.videoAuthor, "mb-4")}>
-                <div className={clsx(styles.videoAuthorName)}>
-                    <h3 className="link-tag">{video.author.nickname}</h3>
-                    <div className={clsx(styles.breifInfo)}>
-                        <div className={clsx(styles.breifInfoTop)}>
-                            <img src={video.author.avatar} alt="author avatar" />
-                            <button>
-                                Follow
-                            </button>
-                        </div>
-                        <h3 className="link-tag mb-6">{video.author.nickname}</h3>
-                        <h5 className="mb-6">{video.author.unique_id}</h5>
-                        <span className="d-block mb-10">
-                            <span className="b-text">{abbrNum(492000, 1)}</span><span>Follow</span>
-                            <span className="b-text">{abbrNum(23423434, 1)}</span><span>Thích</span>
-                        </span>
-                        <hr className="mb-8" />
-                        <p>
-                            một đoạn text mô tả description, asd z zzzzzzzzzzzz
-                        </p>
-                    </div>
-                </div>
+                <SubProfile nickname={video.author.nickname}
+                    avatar={video.author.avatar}
+                    unique_id={video.author.unique_id}
+                />
                 <span>{video.author.unique_id}</span>
             </div>
             <div className={clsx(styles.videoDescription, "mb-4")}>

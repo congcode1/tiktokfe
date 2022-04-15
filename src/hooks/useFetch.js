@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import axiosClient from "../core/api/axiosClient";
 import videoApi from "../core/api/videoApi";
 
 

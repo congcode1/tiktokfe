@@ -36,68 +36,6 @@
         .videoAuthor {
             display: flex;
             align-items: baseline;
-            .videoAuthorName {
-                position: relative;
-                h3 {
-                    padding: 0;
-                    margin: 0;
-                    margin-right: 6px;
-                }
-                &::before {
-                    content: "";
-                    position: absolute;
-                    width: 100%;
-                    height: 20px;
-                    left: 0;
-                    top: calc(100% - 10px);
-                }
-                &:hover .breifInfo {
-                    display: block;
-                }
-                .breifInfo {
-                    z-index: 2;
-                    display: none;
-                    background-color: #fff;
-                    position: absolute;
-                    top: 110%;
-                    left: -55px;
-    
-                    width: 300px;
-                    box-shadow: 4px 4px 20px rgba($color: #000000, $alpha: 0.1);
-                    padding: 20px;
-                    border-radius: 8px;
-                    .breifInfoTop {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        img {
-                            width: 45px;
-                            height: 45px;
-                            border-radius: 50%;
-                        }
-                        button {
-                            @include btnStyle(30px)
-                        }
-                    }
-                    span {
-                        span:nth-child(odd) {
-                            margin-right: 10px;
-                        }
-                        span:nth-child(2) {
-                            margin-right: 20px;
-                        }
-                        // span:not(:first-of-type) {
-                        //     margin-right: 10px;
-                        // }
-                    }
-                    hr {
-                        border-top: 1px solid rgba($color: #000000, $alpha: 0.02);
-                    }
-                    p {
-                        font-size: 14px;
-                    }
-                }
-            }
         }
         .videoDescription {
             display: flex;

@@ -12,6 +12,7 @@ import {
   faCopyright,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SubProfile from "../SubProfile/SubProfile";
 
 export default function Sidebar() {
   return (
@@ -40,7 +41,7 @@ export default function Sidebar() {
           </div>
           <div className="sidebaruser">
             <p>Tài khoản được đề xuất</p>
-            <div className="sidebaruseritem">
+            {Array(5).fill('_').map(() => <div className="sidebaruseritem">
               <a href="google.com.vn">
                 <div className="sidebaruseravatar">
                   <span>
@@ -53,105 +54,25 @@ export default function Sidebar() {
               </a>
               <a href="google.com">
                 <div className="sidebarusername">
-                  <h4>UserName</h4>
+                  <SubProfile nickname={"Username"}
+                    avatar={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"}
+                    unique_id={"unique_id"}
+                  />
                   <div className="sidebaruserverify">
                     <FontAwesomeIcon icon={faCheckCircle} />
                   </div>
                 </div>
                 <p>UserSubName</p>
               </a>
-            </div>
-            <div className="sidebaruseritem">
-              <a href="google.com.vn">
-                <div className="sidebaruseravatar">
-                  <span>
-                    <img
-                      src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                      alt="avatar"
-                    />
-                  </span>
-                </div>
-              </a>
-              <a href="google.com">
-                <div className="sidebarusername">
-                  <h4>UserName</h4>
-                  <div className="sidebaruserverify">
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  </div>
-                </div>
-                <p>UserSubName</p>
-              </a>
-            </div>
-            <div className="sidebaruseritem">
-              <a href="google.com.vn">
-                <div className="sidebaruseravatar">
-                  <span>
-                    <img
-                      src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                      alt="avatar"
-                    />
-                  </span>
-                </div>
-              </a>
-              <a href="google.com">
-                <div className="sidebarusername">
-                  <h4>UserName</h4>
-                  <div className="sidebaruserverify">
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  </div>
-                </div>
-                <p>UserSubName</p>
-              </a>
-            </div>{" "}
-            <div className="sidebaruseritem">
-              <a href="google.com.vn">
-                <div className="sidebaruseravatar">
-                  <span>
-                    <img
-                      src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                      alt="avatar"
-                    />
-                  </span>
-                </div>
-              </a>
-              <a href="google.com">
-                <div className="sidebarusername">
-                  <h4>UserName</h4>
-                  <div className="sidebaruserverify">
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  </div>
-                </div>
-                <p>UserSubName</p>
-              </a>
-            </div>{" "}
-            <div className="sidebaruseritem">
-              <a href="google.com.vn">
-                <div className="sidebaruseravatar">
-                  <span>
-                    <img
-                      src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                      alt="avatar"
-                    />
-                  </span>
-                </div>
-              </a>
-              <a href="google.com">
-                <div className="sidebarusername">
-                  <h4>UserName</h4>
-                  <div className="sidebaruserverify">
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  </div>
-                </div>
-                <p>UserSubName</p>
-              </a>
-            </div>
+            </div>)}
+
             <div className="sidebarusershowmore">
               <p>Xem tất cả</p>
             </div>
           </div>
           <div className="sidebaruser">
             <p>Các tài khoản đang follow</p>
-            <div className="sidebaruseritem">
+            {Array(4).fill("_").map(() => <div className="sidebaruseritem">
               <a href="google.com.vn">
                 <div className="sidebaruseravatar">
                   <span>
@@ -164,56 +85,17 @@ export default function Sidebar() {
               </a>
               <a href="google.com">
                 <div className="sidebarusername">
-                  <h4>UserName</h4>
+                  <SubProfile nickname={"Username"}
+                    avatar={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"}
+                    unique_id={"unique_id"}
+                  />
                   <div className="sidebaruserverify">
                     <FontAwesomeIcon icon={faCheckCircle} />
                   </div>
                 </div>
                 <p>UserSubName</p>
               </a>
-            </div>
-            <div className="sidebaruseritem">
-              <a href="google.com.vn">
-                <div className="sidebaruseravatar">
-                  <span>
-                    <img
-                      src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                      alt="avatar"
-                    />
-                  </span>
-                </div>
-              </a>
-              <a href="google.com">
-                <div className="sidebarusername">
-                  <h4>UserName</h4>
-                  <div className="sidebaruserverify">
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  </div>
-                </div>
-                <p>UserSubName</p>
-              </a>
-            </div>{" "}
-            <div className="sidebaruseritem">
-              <a href="google.com.vn">
-                <div className="sidebaruseravatar">
-                  <span>
-                    <img
-                      src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                      alt="avatar"
-                    />
-                  </span>
-                </div>
-              </a>
-              <a href="google.com">
-                <div className="sidebarusername">
-                  <h4>UserName</h4>
-                  <div className="sidebaruserverify">
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  </div>
-                </div>
-                <p>UserSubName</p>
-              </a>
-            </div>{" "}
+            </div>)}
             <div className="sidebarusershowmore">
               <p>Xem thêm</p>
             </div>
