@@ -1,32 +1,88 @@
-@mixin btnStyle($height) {
-    width: 90px;
-    height: $height;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 4px;
-    color: rgba(254, 44, 85, 1.0);
-    border-color: rgba(254, 44, 85, 0.5);
-    background-color: rgba(255, 255, 255, 1.0);
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.2s;
 
-    &:hover {
-            background-color: rgba($color: #000000, $alpha: 0.02);
-    }
+
+@mixin skeletonAfter {
+    content: '';
+    // background-color: #ffffff;
+    background: linear-gradient(to right, #dddddd, #ffffff 50%, #dddddd);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    animation: skeletonLoading 1s infinite alternate;
 } 
+
+@keyframes skeletonLoading{
+    from {
+        left: -50%;
+    } to {
+        left: 50%;
+    }
+}
+
+@mixin skeletonBefore {
+    content: '';
+    background-color: #dddddd;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+}
+
+.videoSectionLoading {
+    .videoAvatar {
+        .videoAvatarImg {
+            position: relative;
+            overflow: hidden;
+            &::before {
+                @include skeletonBefore()
+            }
+            &::after {
+                @include skeletonAfter()
+            }
+        }
+    }
+    .videoMain {
+        .videoAuthor,
+        .videoDescription,
+        .videoMusic,
+        .videoContainer {
+            position: relative;
+            overflow: hidden;
+            &::before {
+                @include skeletonBefore()
+            }
+            &::after {
+                @include skeletonAfter()
+            }
+        }
+
+    }
+}
 
 .videoSection {
     width: 690px;
     display: flex;
     padding: 20px;
     border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
+    
     .videoAvatar {
-        img {
+        .videoAvatarImg {
             width: 55px;
             height: 55px;
-            border-radius: 50%;
+            img {
+                border-radius: 50%;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 
@@ -63,7 +119,7 @@
                     opacity: 1;
                 }
                 .videoOverlay {
-                    opacity: 0;
+                    opacity: 0; //check
                     position: absolute;
                     top: 0;
                     left: 0;
@@ -87,29 +143,30 @@
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
-                            flex-direction: column;
+                            flex-direction: column-reverse;
                         }
                         &:nth-child(3) {
                             top: 35px;
                             right: 20px;
                         }
-                        .controlItemRange {
-                            writing-mode: bt-lr; /* IE */
-                            -webkit-appearance: slider-vertical; /* Chromium */
-                            width: 8px;
-                            height: 120px;
-                            padding: 0 5px;
-                            margin-bottom: 10px;
+                        
+                        .controlItemSound {
                             position: relative;
-                            &::after {
-                                content: "";
-                                position: absolute;
-                                width: 30px;
-                                height: 100px;
-                                left: 0;
-                                top: 0;
-                                background-color: #f000;
+                            display: flex;
+                            flex-direction: column-reverse;
+                            align-items: center;
+                            &:hover .controlItemRange {
+                                display: inline-block;
                             }
+                        }
+                        .controlItemRange {
+                            input {
+                                // writing-mode: bt-lr; /* IE */
+                                -webkit-appearance: slider-vertical; /* Chromium */
+                                width: 8px;
+                                height: 120px;
+                            }
+                            display: none;
                         }
                     }
                 }
@@ -147,6 +204,11 @@
                             svg {
                                 color: #161823;
                                 font-size: 18px;
+                            }
+                        }
+                        .actionItemIconActive {
+                            svg {
+                                color: #9b0f0f;
                             }
                         }
                         span:nth-child(2) {
@@ -222,10 +284,5 @@
         }
     }
 
-    .videoFollow {
-        button {
-            @include btnStyle(27px)
-        }
-
-    }
+    
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faMusic,
@@ -16,13 +16,13 @@ import {
     faVolumeMute,
 } from '@fortawesome/free-solid-svg-icons';
 import clsx from "clsx";
-import LazyLoad from 'react-lazyload';
 
 import abbrNum from "../../core/helpers/friendlyNumber";
 import styles from "./VideoSession.module.scss";
 import SubProfile from "../../components/SubProfile/SubProfile";
+import FollowButton from "../../components/FollowButton/FollowButton";
 
-function VideoSession({ video }) {
+const VideoSession = forwardRef(({ video, loading }, ref) => {
     const [shareList] = useState(() => [
         {
             icon: faCode,
@@ -45,35 +45,42 @@ function VideoSession({ video }) {
             bgColor: "#e4284c",
         },
     ])
-    const videoRef = useRef();
+    // const videoRef = useRef();
     const [isPlay, setIsPlay] = useState(true);
     const [isSound, setIsSound] = useState(true);
+    const [isLiked, setIsLiked] = useState(false);
+    //actionItemIcon--active
     useEffect(() => {
-        if (videoRef.current)
-            videoRef.current.volume = 0.2;
-    }, [videoRef]);
+        if (ref.current)
+            ref.current.volume = 0.2;
+    }, [ref]);
     function HandleVolumeChange(e) {
         var percent = e.target.value / 100;
-        videoRef.current.volume = percent;
+        ref.current.volume = percent;
     }
     function HandleIsPlayChange() {
         setIsPlay(prev => {
-            isPlay ? videoRef.current.pause() : videoRef.current.play()
+            isPlay ? ref.current.pause() : ref.current.play()
             return !prev;
         });
     }
     function HandleIsSoundChange() {
         setIsSound(prev => {
-            isSound ? videoRef.current.muted = true : videoRef.current.muted = false
+            isSound ? ref.current.muted = true : ref.current.muted = false
             return !prev;
         });
     }
+    function HandleHeartIconClick() {
+        setIsLiked(prev => !prev);
+    }
 
     return video && <section className={clsx(styles.videoSection, "mb-8", {
-        [styles.videoSectionPlay]: true,
+        [styles.videoSectionLoading]: loading,
     })}>
         <div className={clsx(styles.videoAvatar)}>
-            <img src={video.author.avatar} alt="author avatar" />
+            <div className={clsx(styles.videoAvatarImg)}>
+                <img src={video.author.avatar} alt="author avatar" />
+            </div>
         </div>
         <div className={clsx(styles.videoMain)}>
             <div className={clsx(styles.videoAuthor, "mb-4")}>
@@ -97,15 +104,16 @@ function VideoSession({ video }) {
             </div>
             <div className={clsx(styles.videoContainer)}>
                 <div className={clsx(styles.videoContentLeft)}>
-                    <LazyLoad videoRef={videoRef}>
-                        <video ref={videoRef}
-                            src={video.play}
-                            width={280}
-                            height="100%"
-                            loop
-                        >
-                        </video>
-                    </LazyLoad>
+                    <video
+                        ref={ref}
+                        data-src={video.play}
+                        src={video.play}
+                        width={280}
+                        height="100%"
+                        loop
+                        muted
+                    >
+                    </video>
                     <div className={styles.videoOverlay}>
                         <span className={clsx(styles.controlItemIcon)}>
                             <FontAwesomeIcon icon={isPlay ? faPause : faPlay}
@@ -113,12 +121,17 @@ function VideoSession({ video }) {
                             />
                         </span>
                         <span className={clsx(styles.controlItemIcon)}>
-                            <input type="range" orient="vertical" className={clsx(styles.controlItemRange)}
-                                onChange={HandleVolumeChange}
-                            />
-                            <FontAwesomeIcon icon={isSound ? faVolumeHigh : faVolumeMute}
-                                onClick={HandleIsSoundChange}
-                            />
+                            <span className={clsx(styles.controlItemSound)}>
+                                <FontAwesomeIcon
+                                    icon={isSound ? faVolumeHigh : faVolumeMute}
+                                    onClick={HandleIsSoundChange}
+                                />
+                                <span className={clsx(styles.controlItemRange)}>
+                                    <input type="range" orient="vertical"
+                                        onChange={HandleVolumeChange}
+                                    />
+                                </span>
+                            </span>
                         </span>
                         <span className={clsx(styles.controlItemIcon)}>
                             <FontAwesomeIcon icon={faFlag} /> Report
@@ -129,7 +142,11 @@ function VideoSession({ video }) {
                 <div className={clsx(styles.videoContentRight)}>
                     <div className={clsx(styles.videoAction)}>
                         <span className={clsx(styles.actionItem)}>
-                            <span className={clsx(styles.actionItemIcon)}>
+                            <span className={clsx(styles.actionItemIcon, {
+                                [styles.actionItemIconActive]: isLiked
+                            })}
+                                onClick={HandleHeartIconClick}
+                            >
                                 <FontAwesomeIcon icon={faHeart} />
                             </span>
                             <span>{abbrNum(video.digg_count, 1)}</span>
@@ -163,10 +180,12 @@ function VideoSession({ video }) {
                 </div>
             </div>
         </div>
-        <div className={clsx(styles.videoFollow)}>
-            <button>Follow</button>
-        </div>
+        <FollowButton height="30px" width="90px" />
     </section>
-}
+})
+
+// function VideoSession({ video }) {
+
+// }
 
 export default VideoSession;

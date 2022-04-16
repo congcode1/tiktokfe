@@ -1,6 +1,7 @@
 
 import clsx from "clsx";
 import abbrNum from "../../core/helpers/friendlyNumber";
+import FollowButton from "../FollowButton/FollowButton";
 import styles from "./SubProfile.module.scss";
 
 export default function SubProfile({ nickname, avatar, unique_id }) {
@@ -9,9 +10,7 @@ export default function SubProfile({ nickname, avatar, unique_id }) {
         <div className={clsx(styles.breifInfo)}>
             <div className={clsx(styles.breifInfoTop)}>
                 <img src={avatar} alt="author avatar" />
-                <button>
-                    Follow
-                </button>
+                <FollowButton width="90px" height="36px" />
             </div>
             <h3 className="link-tag mb-6">{nickname}</h3>
             <h5 className="mb-6">{unique_id}</h5>

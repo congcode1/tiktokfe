@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { createRef, useEffect } from "react";
-import LazyLoad from 'react-lazyload';
 
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -9,17 +8,39 @@ import VideoSession from "../../modules/VideoSession/VideoSession";
 import styles from "./Home.module.scss";
 
 function HomeComponent({ loading, error, list, loader }) {
+    const refs = [];
+    const newRef = () => {
+        const ref = createRef();
+        refs.push(ref);
+        return ref;
+    }
+
     useEffect(() => {
-        var observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.intersectionRatio > 0) {
-                    console.log('in the view');
-                } else {
-                    // console.log('out of view');
-                }
-            });
-        });
-    }, [])
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach(
+                entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.videoWidth > entry.target.videoHeight) {
+                            entry.target.style.width = "100%";
+                            entry.target.style.height = "auto";
+                        }
+                        entry.target.muted = false
+                        entry.target.play()
+                    } else {
+                        entry.target.pause()
+                    }
+                },
+                { rootMargin: "-300px 0px -300px 0px" }
+            ));
+
+        refs.forEach((ref) =>
+            observer.observe(ref.current)
+        );
+
+        return () => {
+            refs.forEach((ref) => ref.current && observer.unobserve(ref.current));
+        };
+    }, [list]);
 
     return (
         <>
@@ -27,11 +48,7 @@ function HomeComponent({ loading, error, list, loader }) {
             <div className={clsx(styles.main)}>
                 <Sidebar />
                 <div className={clsx(styles.content)}>
-                    {list.map(item => <LazyLoad key={item.id} height={400}>
-                        <VideoSession key={item.id} video={item} />
-                    </LazyLoad>)}
-                    {loading && <p>Loading...</p>}
-                    {error && <p>Error!</p>}
+                    {list.map(item => <VideoSession loading={loading} ref={newRef()} key={item.id} video={item} />)}
                     <div ref={loader}>loader</div>
                 </div>
 

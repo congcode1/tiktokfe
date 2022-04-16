@@ -17,11 +17,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        const option = {
-            // rootMargin: "800px"
-            // threshold: 0.5
-        };
-        const observer = new IntersectionObserver(handleObserver, option);
+        const observer = new IntersectionObserver(handleObserver);
         if (loader.current) observer.observe(loader.current);
     }, [handleObserver]);
 
