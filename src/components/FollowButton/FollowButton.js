@@ -7,6 +7,6 @@ export default function FollowButton(props) {
     return <div className={clsx(styles.videoFollow)}
         style={props}
     >
-        <button>Follow</button>
+        <button>{props.isFollowed ? "Followed" : "Follow"}</button>
     </div>
 }

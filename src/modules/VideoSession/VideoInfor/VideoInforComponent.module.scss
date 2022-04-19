@@ -1,0 +1,19 @@
+.videoAuthor {
+    display: flex;
+    align-items: baseline;
+}
+.videoDescription {
+    display: flex;
+    flex-wrap: wrap;
+    span:first-of-type {
+        margin-right: 4px;
+    }
+    span:not(:first-of-type) {
+        font-weight: 500;
+    } 
+}
+.videoMusic {
+    span {
+        margin-left: 4px;
+    }
+}

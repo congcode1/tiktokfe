@@ -30,6 +30,18 @@
     margin-bottom: 10px;
 }
 
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
 .link-tag:hover {
     cursor: pointer;
     text-decoration: underline;

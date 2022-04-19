@@ -1,0 +1,333 @@
+
+@mixin roundAndWhiteBackground {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    background-color: rgba($color: #fff, $alpha: 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.detailContainer {
+    height: 100vh;
+    
+    .detailLeft {
+        background-color: rgba(0,0,0,0.5);
+        color: rgba($color: #fff, $alpha: 0.8);
+        display: flex;
+        justify-content: space-between;
+
+        .closeAndLogo {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            .closeIcon {
+                @include roundAndWhiteBackground()
+            }
+            .logo {
+                margin-left: 20px;
+                @include roundAndWhiteBackground()
+            }
+        }
+        .videoContainer {
+            width: 360px;
+            position: relative;
+            &:hover .videoOverlay {
+                opacity: 1;
+            }
+
+            .videoOverlay {
+                opacity: 0;
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                background-color: rgba($color: #000000, $alpha: 0.5);
+                transition: opacity .2s;
+
+                .playPauseIcon {
+                    @include roundAndWhiteBackground();
+                    width: 60px;
+                    height: 60px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+                .videoRangeContainer {
+                    position: absolute;
+                    width: 100%;
+                    bottom: 40px;
+                    padding: 0 20px;
+                    display: flex;
+                    justify-content: space-between;
+                    
+                    .videoRange {
+                        flex-grow: 1;
+                        margin-right: 10px;
+                        
+                        input {
+                            -webkit-appearance: none;
+                            width: 100%;
+                            height: 6px;
+                            background: #d3d3d3;
+                            outline: none;
+                            opacity: 0.7;
+                            -webkit-transition: .2s;
+                            transition: opacity .2s;
+
+                            &::-webkit-slider-thumb {
+                                -webkit-appearance: none;
+                                width: 16px;
+                                height: 16px;
+                                border-radius: 50%;
+                                background-color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .reportNavigationVolume {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            
+            .report {
+                @include roundAndWhiteBackground();
+                width: 100px;
+                padding: 10px;
+                border-radius: 20px;
+                display: flex;
+                justify-content: space-around;
+            }
+            .navigation {
+                .upIcon {
+                    @include roundAndWhiteBackground();
+                }
+                .downIcon {
+                    @include roundAndWhiteBackground();
+                }
+            }
+            .volumeIcon {
+                @include roundAndWhiteBackground();
+            }
+        }
+    }
+
+    .detailRight {
+        background-color: #fff;
+
+        .top {
+            height: 50vh;
+            border-bottom: 1px solid rgba($color: #000000, $alpha: 0.3);
+            padding: 60px 20px 30px 20px;
+
+            .userInfor {
+                display: flex;
+                justify-content: space-between;
+
+                .userInforImg {
+                    @include roundAndWhiteBackground()
+                }
+                
+                .userInforText {
+                    flex-grow: 1;
+                    margin: 0 10px;
+                }
+            }
+
+            .videoDescription {
+                display: flex;
+                flex-wrap: wrap;
+                span:first-of-type {
+                    margin-right: 4px;
+                }
+                span:not(:first-of-type) {
+                    font-weight: 600;
+                } 
+            }
+
+            .videoMusic {
+                font-weight: 600;
+
+                span {
+                    margin-left: 4px;
+                }
+            }
+
+            .videoLikeShare {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+
+                .videoLikeComent {
+                    display: flex;
+                    align-items: baseline;
+                    span:nth-child(odd) {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+                        background-color: #f1f1f2;
+                    }
+                    span:not(:last-child) {
+                        margin-right: 10px;
+                    }
+                }
+
+                .videoShare {
+                    display: flex;
+
+                    span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 50%;
+                        width: 25px;
+                        height: 25px;
+                    }
+                    span:not(:last-child) {
+                        margin-right: 10px;
+                    }
+                }
+            }
+
+            .videoCopyLink {
+                height: 40px;
+                border: 1px solid rgba($color: #000000, $alpha: 0.1);
+                display: flex;
+                justify-content: space-between;
+
+                div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                div:first-child {
+                    flex-grow: 1;
+                    background-color: #f1f2f2;
+                }
+
+                div:last-child {
+                    font-size: 14px;
+                    font-weight: 600;
+                    padding: 4px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .bot {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .commentContainer {
+                flex-grow: 1;
+                background-color: #f1f2f2;
+                overflow-y: scroll;
+
+                .commentItem {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 25px 20px;
+
+                    .commentItemImg {
+                        @include roundAndWhiteBackground();
+                    }
+
+                    .commentItemContent {
+                        flex-grow: 1;
+                        margin: 0 20px;
+
+                        h4 {
+                            font-size: 18px;
+                            font-weight: 800;
+                        }
+
+                        span {
+                            display: inline-block;
+                            margin-right: 20px;
+                        }
+
+                        p:last-child {
+                            font-size: 14px;
+                        }
+                    }
+
+                    .commentItemInfor {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 14px;
+
+                        span:nth-child(2) {
+                            margin: 10px 0;
+                        }
+                    }
+                }
+
+            }
+
+
+
+            .giveComment {
+                background-color: #fff;
+                height: 90px;
+                padding: 20px;
+                display: flex;
+
+                .giveCommentInput {
+                    flex-grow: 1;
+                    height: 40px;
+                    position: relative;
+
+                    input {
+                        width: 100%;
+                        height: 100%;
+                        border: 1px solid rgba($color: #000000, $alpha: 0.2);
+                        outline: none;
+                        border-radius: 10px;
+                        background-color: #f1f2f2;
+                        padding: 10px;
+                    }
+
+                    span,
+                    div {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+
+                    span {
+                        right: 55px;
+                    }
+
+                    div {
+                        right: 20px;
+                    }
+                }
+
+                .giveCommentBtn {
+                    padding: 0 10px;
+                    text-align: center;
+                    line-height: 40px;
+                }
+            }
+        }
+    }
+}

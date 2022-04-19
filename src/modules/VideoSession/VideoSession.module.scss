@@ -68,7 +68,7 @@
 }
 
 .videoSection {
-    width: 690px;
+    max-width: 690px;
     display: flex;
     padding: 20px;
     border-bottom: 1px solid rgba($color: #000000, $alpha: 0.2);
@@ -89,25 +89,7 @@
     .videoMain {
         flex: 1;
         padding: 0 10px;
-        .videoAuthor {
-            display: flex;
-            align-items: baseline;
-        }
-        .videoDescription {
-            display: flex;
-            flex-wrap: wrap;
-            span:first-of-type {
-                margin-right: 4px;
-            }
-            span:not(:first-of-type) {
-                font-weight: 500;
-            } 
-        }
-        .videoMusic {
-            span {
-                margin-left: 4px;
-            }
-        }
+        
         .videoContainer {
             display: flex;
             justify-content: flex-start;
@@ -158,6 +140,9 @@
                             &:hover .controlItemRange {
                                 display: inline-block;
                             }
+                            svg {
+                                margin-top: 4px;
+                            }
                         }
                         .controlItemRange {
                             input {
@@ -165,7 +150,19 @@
                                 -webkit-appearance: slider-vertical; /* Chromium */
                                 width: 8px;
                                 height: 120px;
+                                &::-webkit-slider-thumb {
+                                    -webkit-appearance: slider-vertical;;
+                                    width: 23px;
+                                    height: 24px;
+                                    border: 0;
+                                    // background: url('contrasticon.png');
+                                    background: #f00;
+                                    cursor: pointer;
+                                }
                             }
+                            padding: 8px;
+                            background-color: rgba(255,255,255,0.4);
+                            border-radius: 12px;
                             display: none;
                         }
                     }
@@ -208,7 +205,7 @@
                         }
                         .actionItemIconActive {
                             svg {
-                                color: #9b0f0f;
+                                color: #fe2c55;
                             }
                         }
                         span:nth-child(2) {
