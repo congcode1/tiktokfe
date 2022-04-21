@@ -1,0 +1,12 @@
+
+.numAndDescription {
+    span:nth-child(odd) {
+        margin-right: 10px;
+    }
+    span:nth-child(2) {
+        margin-right: 20px;
+    }
+    span:nth-child(4) {
+        margin-right: 20px;
+    }
+}

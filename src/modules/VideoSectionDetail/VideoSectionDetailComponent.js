@@ -18,6 +18,8 @@ export default function VideoSectionDetailComponent() {
     ]
 
     const videoRef = useRef();
+    const progressRef = useRef();
+
     const [isPlaying, setIsPlaying] = useState(false);
     const [timeElapsed, setTimeElapsed] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -32,18 +34,28 @@ export default function VideoSectionDetailComponent() {
     }
 
     function HandleLoadVideoMetadata() {
-        var tmpDuration = FormatTime(videoRef.current.duration);
-        setDuration(`${tmpDuration.minutes}:${tmpDuration.seconds}`)
+        var minutes = Math.floor(videoRef.current.duration / 60);
+        var seconds = videoRef.current.duration - minutes * 60;
+
+        console.log("minutes: ", minutes);
+
+        setDuration(`${minutes}:${seconds}`);
     }
 
-    function FormatTime(timeInSeconds) {
-        const result = new Date(timeInSeconds * 1000).toISOString().substring(11, 8);
+    function HandleTimeUpdate() {
+        var progressPercent = Math.floor(videoRef.current.currentTime / videoRef.current.duration * 100);
+        setTimeElapsed(videoRef.current.currentTime);
+        progressRef.current.value = progressPercent
+    }
 
-        return {
-            minutes: result.substring(3, 2),
-            seconds: result.substring(6, 2),
-        };
-    };
+    function HandleProgressInput(e) {
+        const seekTime = ((videoRef.current.duration * e.target.value) / 100);
+        videoRef.current.currentTime = seekTime;
+    }
+
+    function HandleVideoEnd() {
+        videoRef.current.play();
+    }
 
     return <article className="grid">
         <div className={clsx(styles.detailContainer, "row", "no-gutter")}>
@@ -63,6 +75,8 @@ export default function VideoSectionDetailComponent() {
                         <video
                             ref={videoRef}
                             onLoadedMetadata={HandleLoadVideoMetadata}
+                            onTimeUpdate={HandleTimeUpdate}
+                            onEnded={HandleVideoEnd}
                             src="https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4"
                             width={360}
                         >
@@ -75,7 +89,15 @@ export default function VideoSectionDetailComponent() {
                             </span>
                             <span className={clsx(styles.videoRangeContainer)}>
                                 <span className={clsx(styles.videoRange)}>
-                                    <input type="range" />
+                                    <input
+                                        type="range"
+                                        ref={progressRef}
+                                        onInput={(e) => HandleProgressInput(e)}
+                                        min={0}
+                                        max={100}
+                                        defaultValue={0}
+                                        step={1}
+                                    />
                                 </span>
                                 <span className={clsx(styles.videoMinute)}>{timeElapsed}/{duration}</span>
                             </span>
