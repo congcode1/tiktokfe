@@ -1,7 +1,7 @@
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 
-export default function Layout({ children }) {
+export default function Layout({ bWide, children }) {
     const style = {
         marginTop: "30px"
     }

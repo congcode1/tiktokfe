@@ -20,6 +20,7 @@ import FollowButton from "../../components/FollowButton/FollowButton";
 import AvatarComponent from "./Avatar/AvatarComponent";
 import VideoInforComponent from "./VideoInfor/VideoInforComponent";
 import { Link } from "react-router-dom";
+import ShareList from "../../components/ShareList/ShareList";
 
 const VideoSessionComponent = forwardRef((props, ref) => {
     const {
@@ -117,17 +118,7 @@ const VideoSessionComponent = forwardRef((props, ref) => {
                             </span>
                             <span>{abbrNum(video.share_count, 1)}</span>
                             <ul className={clsx(styles.shareList)}>
-                                {shareList.map(item =>
-                                    <li key={item.title}
-                                        className={clsx(styles.shareItem)}
-                                    >
-                                        <span className={clsx(styles.shareItemIcon)} style={{ backgroundColor: item.bgColor }}>
-                                            <FontAwesomeIcon icon={item.icon} />
-                                        </span>
-                                        <span className={clsx(styles.shareItemText)}>
-                                            {item.title}
-                                        </span>
-                                    </li>)}
+                                <ShareList shareList={shareList} />
                             </ul>
                         </span>
                     </div>
