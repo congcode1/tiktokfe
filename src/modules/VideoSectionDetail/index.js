@@ -1,10 +1,6 @@
 import VideoSectionDetailComponent from "./VideoSectionDetailComponent";
 
-export default function VideoSectionDetail() {
+export default function VideoSectionDetail({ video, HandleNextVideo }) {
 
-    function HandleSoundChange() {
-
-    }
-
-    return <VideoSectionDetailComponent />
+    return <VideoSectionDetailComponent video={video} HandleNextVideo={HandleNextVideo} />
 }

@@ -1,0 +1,33 @@
+.controlItemSound {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    &:hover .controlItemRange {
+        display: inline-block;
+    }
+    svg {
+        margin-top: 4px;
+    }
+}
+.controlItemRange {
+    input {
+        // writing-mode: bt-lr; /* IE */
+        -webkit-appearance: slider-vertical; /* Chromium */
+        width: 8px;
+        height: 120px;
+        &::-webkit-slider-thumb {
+            -webkit-appearance: slider-vertical;;
+            width: 23px;
+            height: 24px;
+            border: 0;
+            // background: url('contrasticon.png');
+            background: #f00;
+            cursor: pointer;
+        }
+    }
+    padding: 8px;
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 12px;
+    display: none;
+}

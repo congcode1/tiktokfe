@@ -1,13 +1,14 @@
-import { faArrowDown, faArrowUp, faClose, faCode, faComment, faDotCircle, faFlag, faHandDots, faHeart, faListDots, faMessage, faMusic, faPaperPlane, faPause, faPlay, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faArrowUp, faClose, faCode, faComment, faDotCircle, faEllipsis, faFlag, faHandDots, faHeart, faListDots, faMessage, faMusic, faPaperPlane, faPause, faPlay, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import ControlItemSound from "../../components/ControlItemSound/ControlItemSound";
 import FollowButton from "../../components/FollowButton/FollowButton";
 import VideoInforComponent from "../VideoSession/VideoInfor/VideoInforComponent";
 import styles from "./VideoSectionDetailComponent.module.scss";
 
-export default function VideoSectionDetailComponent() {
+export default function VideoSectionDetailComponent({ video, HandleNextVideo }) {
     const tagList = ["tag1", "tag1", "tag1", "tag1", "tag1"]
     const shareList = [
         { title: "Nhúng", icon: faCode, bg: "#50525a" },
@@ -21,7 +22,9 @@ export default function VideoSectionDetailComponent() {
     const progressRef = useRef();
 
     const [isPlaying, setIsPlaying] = useState(false);
-    const [timeElapsed, setTimeElapsed] = useState(0);
+    const [isSound, setIsSound] = useState(true);
+
+    const [timeElapsed, setTimeElapsed] = useState(`00:00`);
     const [duration, setDuration] = useState(0);
 
     function HandleToggleVideo() {
@@ -34,18 +37,13 @@ export default function VideoSectionDetailComponent() {
     }
 
     function HandleLoadVideoMetadata() {
-        var minutes = Math.floor(videoRef.current.duration / 60);
-        var seconds = videoRef.current.duration - minutes * 60;
-
-        console.log("minutes: ", minutes);
-
-        setDuration(`${minutes}:${seconds}`);
+        setDuration(FormatNumber(videoRef.current.duration));
     }
 
     function HandleTimeUpdate() {
         var progressPercent = Math.floor(videoRef.current.currentTime / videoRef.current.duration * 100);
-        setTimeElapsed(videoRef.current.currentTime);
-        progressRef.current.value = progressPercent
+        setTimeElapsed(FormatNumber(videoRef.current.currentTime));
+        progressRef.current.value = progressPercent;
     }
 
     function HandleProgressInput(e) {
@@ -57,7 +55,34 @@ export default function VideoSectionDetailComponent() {
         videoRef.current.play();
     }
 
-    return <article className="grid">
+    function FormatNumber(seconds) {
+        let minute = Math.floor(seconds / 60);
+        let second = seconds - minute * 60;
+        second = Math.floor(second);
+
+        if (minute < 10) {
+            minute = `0${minute}`
+        }
+        if (second < 10) {
+            second = `0${second}`
+        }
+
+        return `${minute}:${second}`;
+    }
+
+    function HandleIsSoundChange() {
+        setIsSound(prev => {
+            isSound ? videoRef.current.muted = true : videoRef.current.muted = false
+            return !prev;
+        });
+    }
+
+    function HandleVolumeChange(e) {
+        var percent = e.target.value / 100;
+        videoRef.current.volume = percent;
+    }
+
+    return video && <article className="grid">
         <div className={clsx(styles.detailContainer, "row", "no-gutter")}>
             <div className={clsx(styles.detailLeft, "col", "c-7")}>
                 <div className={clsx(styles.closeAndLogo)}>
@@ -77,7 +102,7 @@ export default function VideoSectionDetailComponent() {
                             onLoadedMetadata={HandleLoadVideoMetadata}
                             onTimeUpdate={HandleTimeUpdate}
                             onEnded={HandleVideoEnd}
-                            src="https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4"
+                            src={video.play}
                             width={360}
                         >
                         </video>
@@ -110,44 +135,55 @@ export default function VideoSectionDetailComponent() {
                         Report
                     </span>
                     <span className={clsx(styles.navigation)}>
-                        <span className={clsx(styles.upIcon)}>
+                        <span className={clsx(styles.upIcon)}
+                        >
                             <FontAwesomeIcon icon={faArrowUp} />
                         </span>
-                        <span className={clsx(styles.downIcon)}>
+                        <span className={clsx(styles.downIcon)}
+                            onClick={HandleNextVideo}
+                        >
                             <FontAwesomeIcon icon={faArrowDown} />
                         </span>
                     </span>
-                    <span className={clsx(styles.volumeIcon)}>
-                        <FontAwesomeIcon icon={faVolumeHigh} />
-                    </span>
+                    <ControlItemSound
+                        style={{
+                            position: "absolute",
+                            bottom: "20px",
+                            right: "20px",
+                        }}
+                        className={clsx(styles.volumeIcon)}
+                        isSound={isSound}
+                        HandleIsSoundChange={HandleIsSoundChange}
+                        HandleVolumeChange={HandleVolumeChange}
+                    />
                 </div>
             </div>
             <div className={clsx(styles.detailRight, "col", "c-5")}>
                 <div className={clsx(styles.top)}>
                     <div className={clsx(styles.userInfor, "mb-20")}>
                         <span className={clsx(styles.userInforImg)}>
-                            <img src="https://p9-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/d123b4252a03d2d56dba835dd0d3e03f.jpeg?x-expires=1650456000&x-signature=%2Fvit1R0HXcG6TgAWpAWMVcBjdoo%3D" />
+                            <img src={video.author.avatar} />
                         </span>
                         <div className={clsx(styles.userInforText)}>
-                            <h4>tanphat_77</h4>
-                            <p>tanphat_77 tieu su asdd</p>
+                            <h4>{video.author.unique_id}</h4>
+                            <p>{video.author.nickname}</p>
                         </div>
                         <FollowButton width="100px" height="35px" />
                     </div>
                     <div className={clsx(styles.videoDescription, "mb-20")}>
-                        <span>{"Hai bạn chia tay bao lâu rồi...?"}</span>
+                        <span>{video.title}</span>
                         {tagList.map((item, key) => <span key={key} className="tag link-tag">#{item}</span>)}
                     </div>
                     <div className={clsx(styles.videoMusic, "mb-20")}>
                         <FontAwesomeIcon icon={faMusic} />
-                        <span className="link-tag">nhạc nền - {"musicTitle"} - {"musicAuthor"}</span>
+                        <span className="link-tag">nhạc nền - {video.music.title} - {video.music.author}</span>
                     </div>
                     <div className={clsx(styles.videoLikeShare, "mt-20")}>
                         <div className={clsx(styles.videoLikeComent)}>
                             <span><FontAwesomeIcon icon={faHeart} /></span>
-                            <span>408.4K</span>
+                            <span>{video.digg_count}</span>
                             <span><FontAwesomeIcon icon={faComment} /></span>
-                            <span>4K</span>
+                            <span>{video.comment_count}</span>
                         </div>
                         <div className={clsx(styles.videoShare)}>
                             {shareList.map(item => <span style={{ backgroundColor: item.bg }}><FontAwesomeIcon icon={item.icon} /></span>)}
@@ -164,7 +200,7 @@ export default function VideoSectionDetailComponent() {
                             <>
                                 <div className={clsx(styles.commentItem)}>
                                     <span className={clsx(styles.commentItemImg)}>
-                                        <img src="https://p9-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/d123b4252a03d2d56dba835dd0d3e03f.jpeg?x-expires=1650456000&x-signature=%2Fvit1R0HXcG6TgAWpAWMVcBjdoo%3D" />
+                                        <img src="https://res.cloudinary.com/dntsyzdh3/image/upload/v1649772487/Tiktok/images/az_yfnmem.jpg" />
                                     </span>
                                     <div className={clsx(styles.commentItemContent)}>
                                         <h4>TenTacGia</h4>
@@ -175,7 +211,7 @@ export default function VideoSectionDetailComponent() {
 
                                     </div>
                                     <div className={clsx(styles.commentItemInfor)}>
-                                        <span><FontAwesomeIcon icon={faHandDots} /></span>
+                                        <span><FontAwesomeIcon icon={faEllipsis} /></span>
                                         <span><FontAwesomeIcon icon={faHeart} /></span>
                                         <span>457</span>
                                     </div>
@@ -184,7 +220,7 @@ export default function VideoSectionDetailComponent() {
                                     {Array(4).fill("z").map(() =>
                                         <div className={clsx(styles.commentItem, styles.commentSubItem)}>
                                             <span className={clsx(styles.commentItemImg)}>
-                                                <img src="https://p9-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/d123b4252a03d2d56dba835dd0d3e03f.jpeg?x-expires=1650456000&x-signature=%2Fvit1R0HXcG6TgAWpAWMVcBjdoo%3D" />
+                                                <img src="https://res.cloudinary.com/dntsyzdh3/image/upload/v1649772487/Tiktok/images/az_yfnmem.jpg" />
                                             </span>
                                             <div className={clsx(styles.commentItemContent)}>
                                                 <h4>TenTacGia</h4>

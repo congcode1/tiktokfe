@@ -1,9 +1,14 @@
-import { createRef, useCallback, useEffect, useRef, useState } from "react";
-import useFetch from "../../hooks/useFetch";
+import { createRef, useEffect, useReducer, useRef, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchListVideo } from "../../core/features/list-video/listVideoSlice";
 
+import useFetch from "../../hooks/useFetch";
 import HomeComponent from "./HomeComponent";
 
 export default function Home() {
+
+    const dispatch = useDispatch();
+    const video = useSelector(state => state.gListVideo)
 
     const [page, setPage] = useState(1);
     const { loading, error, list } = useFetch(page);
@@ -59,5 +64,6 @@ export default function Home() {
         };
     }, [list]);
 
-    return <HomeComponent loading={loading} error={error} list={list} loader={loader} newRef={newRef} />
+    return <button onClick={() => dispatch(fetchListVideo())}>teat</button>
+    // return <HomeComponent loading={loading} error={error} list={list} loader={loader} newRef={newRef} />
 }

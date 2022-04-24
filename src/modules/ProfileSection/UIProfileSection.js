@@ -3,6 +3,7 @@ import { faCode, faEllipsis, faLink, faMessage, faPaperPlane, faPlay, faShare, f
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import clsx from "clsx"
 import { useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 import NumAndDescription from "../../components/NumAndDescription/NumAndDescription"
 import ShareList from "../../components/ShareList/ShareList"
 import styles from "./UIProfileSection.module.scss"
@@ -34,31 +35,31 @@ export default function UIProfileSection() {
     const [listTab] = useState(["Video", "Liked"])
     const [listVideo] = useState([
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "",
             tag: ["tag1", "tag2", "tag3"]
         },
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list video chào em nha",
             tag: ["tag1", "tag2", "tag3"]
         },
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list video chào em nha",
             tag: ["tag1", "tag2", "tag3"]
         },
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list video chào em nha",
             tag: ["tag1", "tag2", "tag3"]
         },
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list video chào em nha",
             tag: ["tag1", "tag2", "tag3"]
@@ -66,31 +67,31 @@ export default function UIProfileSection() {
     ])
     const [listLiked] = useState([
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list liked chào em nha",
             tag: ["tag1", "tag2", "tag3"]
         },
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list liked chào em nha",
             tag: ["tag1", "tag2", "tag3"]
         },
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list liked chào em nha",
             tag: ["tag1", "tag2", "tag3"]
         },
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list liked chào em nha",
             tag: ["tag1", "tag2", "tag3"]
         },
         {
-            src: "https://v16-webapp.tiktok.com/feaa551bdcdf13038e12149f6984ab3c/6263f6b8/video/tos/useast2a/tos-useast2a-pve-0037-aiso/9560745cbd0241d6a803393dcec88d48/?a=1988&br=2450&bt=1225&cd=0%7C0%7C1%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=&ft=eXd.6Hk_Myq8ZkurNwe2NMthml7Gb&l=20220423065303010245040101169CCC10&lr=tiktok_m&mime_type=video_mp4&net=0&pl=0&qs=0&rc=MzdrZTY6ZnhyOjMzZjgzM0ApOmUzOGk2PDxlN2Q4Nmk6N2dqLjJwcjRnc2JgLS1kL2Nzcy5iL2I2YDUtYTMzYzRhYTA6Yw%3D%3D&vl=&vr=",
+            src: "https://res.cloudinary.com/dntsyzdh3/video/upload/v1649771922/Tiktok/videos/v4_etrtme.mp4",
             likeCount: 2342,
             description: "list liked chào em nha",
             tag: ["tag1", "tag2", "tag3"]
@@ -116,7 +117,7 @@ export default function UIProfileSection() {
             <div className="col c-9">
                 <div className={clsx(styles.infor)}>
                     <div className={clsx(styles.inforAvatar)}>
-                        <img src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/7dead547e8087b2b0db862258953e545~c5_100x100.jpeg?x-expires=1650628800&x-signature=eA%2FH0LoM5JP1ns%2F7jdsjgHBWhik%3D" />
+                        <img src="https://res.cloudinary.com/dntsyzdh3/image/upload/v1649772487/Tiktok/images/az_yfnmem.jpg" />
                     </div>
                     <div className={clsx(styles.mainInfor)}>
                         <h3>Name Name</h3>
@@ -173,9 +174,13 @@ export default function UIProfileSection() {
                 {(activeTab == 'Video' ? listVideo : listLiked).map((item) => <div className="col c-3 mt-20">
                     <div className={clsx(styles.videoItem)}>
                         <div className={clsx(styles.videoContainer)}>
-                            <video src={item.src}
-                            >
-                            </video>
+                            <Link to="/detail">
+                                <video src={item.src}
+                                    onMouseOver={e => e.currentTarget.play()}
+                                    onMouseLeave={e => e.currentTarget.pause()}
+                                >
+                                </video>
+                            </Link>
                             <p>
                                 <FontAwesomeIcon icon={faPlay} />
                                 <span>{item.likeCount}</span>

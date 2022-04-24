@@ -21,6 +21,7 @@ import AvatarComponent from "./Avatar/AvatarComponent";
 import VideoInforComponent from "./VideoInfor/VideoInforComponent";
 import { Link } from "react-router-dom";
 import ShareList from "../../components/ShareList/ShareList";
+import ControlItemSound from "../../components/ControlItemSound/ControlItemSound";
 
 const VideoSessionComponent = forwardRef((props, ref) => {
     const {
@@ -73,17 +74,10 @@ const VideoSessionComponent = forwardRef((props, ref) => {
                             />
                         </span>
                         <span className={clsx(styles.controlItemIcon)}>
-                            <span className={clsx(styles.controlItemSound)}>
-                                <FontAwesomeIcon
-                                    icon={isSound ? faVolumeHigh : faVolumeMute}
-                                    onClick={HandleIsSoundChange}
-                                />
-                                <span className={clsx(styles.controlItemRange)}>
-                                    <input type="range" orient="vertical"
-                                        onChange={(e) => HandleVolumeChange(e)}
-                                    />
-                                </span>
-                            </span>
+                            <ControlItemSound isSound={isSound}
+                                HandleIsSoundChange={HandleIsSoundChange}
+                                HandleVolumeChange={HandleVolumeChange}
+                            />
                         </span>
                         <span className={clsx(styles.controlItemIcon)}>
                             <FontAwesomeIcon icon={faFlag} /> Report

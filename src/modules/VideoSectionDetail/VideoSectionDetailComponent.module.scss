@@ -16,7 +16,7 @@
     
     .detailLeft {
         background-color: rgba(0,0,0,0.5);
-        color: rgba($color: #fff, $alpha: 0.8);
+        color: rgba($color: #fff, $alpha: 1);
         display: flex;
         justify-content: space-between;
 
@@ -24,7 +24,9 @@
             display: flex;
             justify-content: space-between;
             padding: 20px;
+            
             .closeIcon {
+                color: #fff;
                 @include roundAndWhiteBackground()
             }
             .logo {
@@ -94,10 +96,11 @@
         }
         .reportNavigationVolume {
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: flex-end;
+            position: relative;
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: space-between;
+            // align-items: flex-end;
             
             .report {
                 @include roundAndWhiteBackground();
@@ -108,6 +111,10 @@
                 justify-content: space-around;
             }
             .navigation {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
                 .upIcon {
                     @include roundAndWhiteBackground();
                 }
