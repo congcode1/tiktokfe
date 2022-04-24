@@ -2,28 +2,25 @@ import { createRef, useEffect, useReducer, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchListVideo } from "../../core/features/list-video/listVideoSlice";
 
-import useFetch from "../../hooks/useFetch";
 import HomeComponent from "./HomeComponent";
 
 export default function Home() {
 
-    const dispatch = useDispatch();
-    const video = useSelector(state => state.gListVideo)
-
     const [page, setPage] = useState(1);
-    const { loading, error, list } = useFetch(page);
+    const dispatch = useDispatch();
+    const gListVideo = useSelector(state => state.gListVideo)
+
     const loader = useRef();
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             const target = entries[0];
             if (target.isIntersecting) {
-                setPage((prev) => prev + 1);
+                dispatch(fetchListVideo(page + 1))
+                setPage(pre => pre + 1)
             }
         });
-
         loader.current && observer.observe(loader.current);
-
         return () => {
             loader.current && observer.unobserve(loader.current)
         }
@@ -62,8 +59,8 @@ export default function Home() {
         return () => {
             refs.forEach((ref) => ref.current && observer.unobserve(ref.current));
         };
-    }, [list]);
+    }, [gListVideo.listVideo]);
 
-    return <button onClick={() => dispatch(fetchListVideo())}>teat</button>
-    // return <HomeComponent loading={loading} error={error} list={list} loader={loader} newRef={newRef} />
+    // return <button onClick={() => dispatch(fetchListVideo(1))}>teat</button>
+    return <HomeComponent loading={gListVideo.loading} error={gListVideo.error} listVideo={gListVideo.listVideo} loader={loader} newRef={newRef} />
 }

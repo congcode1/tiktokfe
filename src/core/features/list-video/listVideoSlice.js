@@ -3,8 +3,8 @@ import videoApi from "../../api/videoApi"
 
 export const fetchListVideo = createAsyncThunk(
     'listvideo/fetch_list_video',
-    async () => {
-        const response = await videoApi.getAll();
+    async (_page) => {
+        const response = await videoApi.getVideos({ _page, _limit: 4 });
         return response;
     }
 )
@@ -27,9 +27,8 @@ const listVideoSlice = createSlice({
         })
 
         builder.addCase(fetchListVideo.fulfilled, (state, action) => {
-            console.log("actionzxc: ", action)
             state.loading = false
-            state.listVideo = action.payload
+            state.listVideo = [...state.listVideo, ...action.payload]
         })
 
         builder.addCase(fetchListVideo.rejected, (state, action) => {

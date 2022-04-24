@@ -5,11 +5,11 @@ import VideoSession from "../../modules/VideoSession";
 
 import styles from "./HomeComponent.module.scss";
 
-function HomeComponent({ loading, list, loader, newRef }) {
+function HomeComponent({ loading, listVideo, loader, newRef }) {
 
     return <Layout>
         <div className={clsx(styles.content)}>
-            {list.map(item => <VideoSession loading={loading} ref={newRef()} key={item.id} video={item} />)}
+            {listVideo.map(item => <VideoSession loading={loading} ref={newRef()} key={item.id} video={item} />)}
             <div ref={loader}>loader</div>
         </div>
     </Layout>

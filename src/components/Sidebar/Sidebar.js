@@ -41,7 +41,7 @@ export default function Sidebar() {
           </div>
           <div className="sidebaruser">
             <p>Tài khoản được đề xuất</p>
-            {Array(5).fill('_').map(() => <div className="sidebaruseritem">
+            {Array(5).fill('_').map(() => <div key={Math.random()} className="sidebaruseritem">
               <a href="google.com.vn">
                 <div className="sidebaruseravatar">
                   <span>
@@ -72,7 +72,7 @@ export default function Sidebar() {
           </div>
           <div className="sidebaruser">
             <p>Các tài khoản đang follow</p>
-            {Array(4).fill("_").map(() => <div className="sidebaruseritem">
+            {Array(4).fill("_").map(() => <div key={Math.random()} className="sidebaruseritem">
               <a href="google.com.vn">
                 <div className="sidebaruseravatar">
                   <span>
