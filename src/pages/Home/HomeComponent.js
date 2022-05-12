@@ -2,7 +2,6 @@ import clsx from "clsx";
 
 import Layout from "../../components/Layout/Layout";
 import VideoSession from "../../modules/VideoSession";
-
 import styles from "./HomeComponent.module.scss";
 
 function HomeComponent({ loading, listVideo, loader, newRef }) {

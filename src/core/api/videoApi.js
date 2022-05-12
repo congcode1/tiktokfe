@@ -9,6 +9,10 @@ const videoApi = {
         const url = "/videos";
         return axiosClient.get(url, { params });
     },
+    getVideoDetail: (id) => {
+        const url = "/videos/" + id;
+        return axiosClient.get(url);
+    },
 }
 
 export default videoApi;

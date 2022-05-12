@@ -98,7 +98,7 @@ const VideoSessionComponent = forwardRef((props, ref) => {
                             <span>{abbrNum(video.digg_count, 1)}</span>
                         </span>
                         <span className={clsx(styles.actionItem)}>
-                            <Link to="/detail">
+                            <Link to={`/detail/${video.id}`}>
                                 <span className={clsx(styles.actionItemIcon)}>
                                     <FontAwesomeIcon icon={faCommentAlt} />
                                 </span>

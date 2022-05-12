@@ -8,7 +8,7 @@ import FollowButton from "../../components/FollowButton/FollowButton";
 import VideoInforComponent from "../VideoSession/VideoInfor/VideoInforComponent";
 import styles from "./VideoSectionDetailComponent.module.scss";
 
-export default function VideoSectionDetailComponent({ video, HandleNextVideo }) {
+export default function VideoSectionDetailComponent({ video, id }) {
     const tagList = ["tag1", "tag1", "tag1", "tag1", "tag1"]
     const shareList = [
         { title: "Nhúng", icon: faCode, bg: "#50525a" },
@@ -135,13 +135,10 @@ export default function VideoSectionDetailComponent({ video, HandleNextVideo }) 
                         Report
                     </span>
                     <span className={clsx(styles.navigation)}>
-                        <span className={clsx(styles.upIcon)}
-                        >
+                        <span className={clsx(styles.upIcon)}>
                             <FontAwesomeIcon icon={faArrowUp} />
                         </span>
-                        <span className={clsx(styles.downIcon)}
-                            onClick={HandleNextVideo}
-                        >
+                        <span className={clsx(styles.downIcon)}>
                             <FontAwesomeIcon icon={faArrowDown} />
                         </span>
                     </span>

@@ -3,13 +3,15 @@ import videoApi from "../../api/videoApi"
 
 export const fetchListVideo = createAsyncThunk(
     'listvideo/fetch_list_video',
-    async (_page) => {
-        const response = await videoApi.getVideos({ _page, _limit: 4 });
+    async (_page, thunkAPI) => {
+        const response = await videoApi.getVideos({ _page: thunkAPI.getState().gListVideo._page + 1, _limit: 4 });
         return response;
     }
 )
 
 const initialState = {
+    activeVideo: 0,
+    _page: 0,
     listVideo: [],
     loading: true,
     error: null,
@@ -19,7 +21,9 @@ const listVideoSlice = createSlice({
     name: 'listVideoSlice',
     initialState,
     reducers: {
-
+        handleChangeActiveVideo: (state, action) => {
+            state.activeVideo = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchListVideo.pending, state => {
@@ -28,6 +32,7 @@ const listVideoSlice = createSlice({
 
         builder.addCase(fetchListVideo.fulfilled, (state, action) => {
             state.loading = false
+            state._page += 1
             state.listVideo = [...state.listVideo, ...action.payload]
         })
 

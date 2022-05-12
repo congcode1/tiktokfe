@@ -1,22 +1,32 @@
-import { useEffect, useState } from "react";
-import videoApi from "../../core/api/videoApi";
+import { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import DetailComponent from "./DetailComponent";
 
+function useQuery() {
+    const { search } = useLocation();
+    return useMemo(() => new URLSearchParams(search), [search]);
+}
 
 export default function Detail() {
-    const [listVideo, setListVideo] = useState([]);
-    const [activeVideo, setActiveVideo] = useState(0);
+    const gListVideo = useSelector(state => state.gListVideo);
+    let query = useQuery();
+    const [activeVideo, setActiveVideo] = useState(query.get("id") - 1);
 
     function HandleNextVideo() {
-        setActiveVideo(pre => pre + 1);
+        if (activeVideo + 1 >= gListVideo.listVideo.length) {
+            setActiveVideo(0)
+        } else {
+            setActiveVideo(pre => pre + 1);
+        }
     }
     function HandlePrevVideo() {
-        setActiveVideo(pre => pre - 1);
+        if (activeVideo - 1 <= 0) {
+            setActiveVideo(gListVideo.listVideo.length - 1)
+        } else {
+            setActiveVideo(pre => pre - 1);
+        }
     }
 
-    useEffect(() => {
-        videoApi.getVideos({ _page: 1, _limit: 4 }).then(res => setListVideo(res))
-    }, [])
-
-    return <DetailComponent video={listVideo[activeVideo]} HandleNextVideo={HandleNextVideo} />
+    return <DetailComponent video={gListVideo.listVideo[activeVideo]} HandleNextVideo={HandleNextVideo} />
 }
